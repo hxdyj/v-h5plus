@@ -1,0 +1,17 @@
+{
+  "name": "v-h5plus",
+  "version": "0.0.2",
+  "author": "hxdyj",
+  "license": "MIT",
+  "devDependencies": {
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.4",
+    "typescript": "^4.3.5",
+    "tslib": "^2.3.0",
+    "rollup-plugin-dts": "^3.0.2",
+    "vue-router": "^4.0.0-0"
+  },
+  "main": "es/index.js",
+  "module": "es/index.js",
+  "typings": "typings/index.d.ts"
+}
