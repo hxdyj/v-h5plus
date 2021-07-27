@@ -111,13 +111,25 @@ declare namespace plus {
     getCamera(index: 1 | 2): Camera
   }
 
-  const device = {
-    imei: string,
-    imsi: string,
-    model: string,
-    vendor: string,
-    uuid: string,
+  declare namespace device {
+    const imei: string
+    const imsi: string
+    const model: string
+    const vendor: string
+    const uuid: string
   }
+
+  declare namespace networkinfo {
+    const CONNECTION_UNKNOW: number
+    const CONNECTION_NONE: number
+    const CONNECTION_ETHERNET: number
+    const CONNECTION_WIFI: number
+    const CONNECTION_CELL2G: number
+    const CONNECTION_CELL3G: number
+    const CONNECTION_CELL4G: number
+    function getCurrentType(): CONNECTION_UNKNOW | CONNECTION_NONE | CONNECTION_ETHERNET | CONNECTION_WIFI | CONNECTION_CELL2G | CONNECTION_CELL3G | CONNECTION_CELL4G
+  }
+
   type DirectoryEntry = {
     isFile: boolean
     isDirectory: boolean
