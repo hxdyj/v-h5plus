@@ -20,6 +20,19 @@ export function amendPlusBackButton(router: Router) {
     })
 }
 
+// export function plusShowWebview(url: string) {
+//     let wv = plus.webview.create(url, url)
+//     wv.show()
+//     let listener = function () {
+//         let currentWv = plus.webview.currentWebview();
+//         if (currentWv.id === wv.id) {
+//             plus.key.removeEventListener('backbutton', listener)
+//             wv.close()
+//         }
+//     }
+//     plus.key.addEventListener('backbutton', listener)
+// }
+
 export function onPlusReady() {
     return new Promise((resolve, reject) => {
         document.addEventListener(PlusEventName.plusready, function () {
