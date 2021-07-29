@@ -102,8 +102,9 @@ type ActionSheetCallback = (event: {
   index: number // 用户关闭时点击按钮的索引值 索引值从0开始  0表示用户点击取消按钮，大于0值表示用户点击ActionSheetStyles中buttons属性定义的按钮，索引值从1开始（即1表示点击buttons中定义的第一个按钮）。 通过API（close()方法）关闭，则回调函数中event的index属性值为-1。
 }) => void
 declare namespace plus {
-  const key = {
-    addEventListener(eventName: PlusKeyType, keyEventCallback: ({ keyCode: number }) => void): void
+  declare namespace key {
+    function addEventListener(eventName: PlusKeyType, keyEventCallback: ({ keyCode: number }) => void): void
+    function removeEventListener(eventName: PlusKeyType, keyEventCallback: ({ keyCode: number }) => void): void
   }
 
   const camera = {
