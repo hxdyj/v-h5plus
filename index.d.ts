@@ -176,6 +176,7 @@ declare namespace plus {
     id: string
     addEventListener(event: WebviewEvent, listener: EventCallback, capture?: boolean)
     show(): void
+    close(): void
   }
 
   type Extras = {
