@@ -186,6 +186,7 @@ declare namespace plus {
   declare namespace webview {
     function create(url: string, id: string, style?: unknown, extras?: Extras): WebviewObject
     function currentWebview(): WebviewObject
+    function getTopWebview(): WebviewObject
   }
 
   declare namespace barcode {
