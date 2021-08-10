@@ -173,11 +173,14 @@ declare namespace plus {
 
   type WebviewEvent = 'close' | 'loaded'
   type EventCallback = (event: { target: WebviewObject }) => void
+  type HistoryQueryCallback = ({ canBack: boolean }) => void
   type WebviewObject = {
     id: string
     addEventListener(event: WebviewEvent, listener: EventCallback, capture?: boolean)
     show(): void
     close(): void
+    back(): void
+    canBack(cb: HistoryQueryCallback): void
   }
 
   type Extras = {
