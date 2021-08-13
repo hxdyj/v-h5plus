@@ -50,7 +50,7 @@ type GalleryMultiplePickSuccessCallback = (result: {
   files: Array<string>
 }) => void
 
-type GalleryErrorCallback = (error: Error) => void
+type GalleryErrorCallback = (err: PlusError) => void
 type CameraCropStyle = {
   quality: number,
   width: number,
@@ -67,12 +67,12 @@ type CameraOption = {
   resolution?: String
   popover?: PopPosition
 }
-type Error = {
+type PlusError = {
   code: string
   message: string
 }
 type CameraSuccessCallback = (capturedFile: string) => void
-type CameraErrorCallback = (error: Error) => void
+type CameraErrorCallback = (err: PlusError) => void
 type Camera = {
   readonly supportedVideoResolutions
   readonly supportedImageFormats
@@ -102,17 +102,17 @@ type ActionSheetCallback = (event: {
   index: number // 用户关闭时点击按钮的索引值 索引值从0开始  0表示用户点击取消按钮，大于0值表示用户点击ActionSheetStyles中buttons属性定义的按钮，索引值从1开始（即1表示点击buttons中定义的第一个按钮）。 通过API（close()方法）关闭，则回调函数中event的index属性值为-1。
 }) => void
 declare namespace plus {
-  declare namespace key {
+  namespace key {
     function addEventListener(eventName: PlusKeyType, keyEventCallback: ({ keyCode: number }) => void): void
     function removeEventListener(eventName: PlusKeyType, keyEventCallback: ({ keyCode: number }) => void): void
   }
 
-  const camera = {
+  namespace camera {
     /* 指定要获取摄像头的索引值，1表示主摄像头，2表示辅摄像头。如果没有设置则使用系统默认主摄像头。 */
-    getCamera(index: 1 | 2): Camera
+    function getCamera(index: 1 | 2): Camera
   }
 
-  declare namespace device {
+  namespace device {
     const imei: string
     const imsi: string
     const model: string
@@ -120,15 +120,16 @@ declare namespace plus {
     const uuid: string
   }
 
-  declare namespace networkinfo {
-    const CONNECTION_UNKNOW: number
-    const CONNECTION_NONE: number
-    const CONNECTION_ETHERNET: number
-    const CONNECTION_WIFI: number
-    const CONNECTION_CELL2G: number
-    const CONNECTION_CELL3G: number
-    const CONNECTION_CELL4G: number
-    function getCurrentType(): CONNECTION_UNKNOW | CONNECTION_NONE | CONNECTION_ETHERNET | CONNECTION_WIFI | CONNECTION_CELL2G | CONNECTION_CELL3G | CONNECTION_CELL4G
+  namespace networkinfo {
+    const CONNECTION_UNKNOW: 0
+    const CONNECTION_NONE: 1
+    const CONNECTION_ETHERNET: 2
+    const CONNECTION_WIFI: 3
+    const CONNECTION_CELL2G: 4
+    const CONNECTION_CELL3G: 5
+    const CONNECTION_CELL4G: 6
+    type NetType = 0 | 1 | 2 | 3 | 4 | 5 | 6
+    function getCurrentType(): NetType
   }
 
   type DirectoryEntry = {
@@ -146,12 +147,12 @@ declare namespace plus {
     fullPath: string
     fileSystem: unknown
     toLocalURL: () => string
-    file: (succesCB?: (file: File) => void, errorCB?: (err: Error) => void) => void
+    file: (succesCB?: (file: File) => void, errorCB?: (err: PlusError) => void) => void
   }
   type FileResolveSuccessCallback = (entry: FileEntry | DirectoryEntry) => void
-  type FileErrorCallback = (err: Error) => void
-  declare namespace io {
-    declare class FileReader {
+  type FileErrorCallback = (err: PlusError) => void
+  namespace io {
+    class FileReader {
       onloadend(event: {
         target: {
           result: unknown
@@ -162,14 +163,14 @@ declare namespace plus {
     function resolveLocalFileSystemURL(url: string, succesCB: FileResolveSuccessCallback, errorCB?: FileErrorCallback): void
   }
 
-  const nativeUI = {
-    actionSheet(actionsheetStyle: ActionSheetStyle, actionsheetCallback: ActionSheetCallback): void
+  namespace nativeUI {
+    function actionSheet(actionsheetStyle: ActionSheetStyle, actionsheetCallback: ActionSheetCallback): void
   }
   type GallerySaveEvent = {
     path: string
   }
   type GallerySuccessCallback = (event: GallerySaveEvent) => void
-  declare namespace gallery {
+  namespace gallery {
     function pick(successCB: GalleryPickSuccessCallback, errorCB: GalleryErrorCallback, options: GalleryOption): void
     function save(path: string, successCB: GallerySuccessCallback, errorCB?: GalleryErrorCallback): void
   }
@@ -187,19 +188,18 @@ declare namespace plus {
   }
 
   type Extras = {
-    [string]: unknown
+    [index: string]: unknown
   }
-  declare namespace webview {
+  namespace webview {
     function create(url: string, id: string, style?: unknown, extras?: Extras): WebviewObject
     function currentWebview(): WebviewObject
     function getTopWebview(): WebviewObject
   }
 
-  declare namespace barcode {
+  namespace barcode {
     const QR: number
     class Barcode {
-      constructor(domId: string, filters?: BarcodeType[] | null, styles?: BarcodeStyles | null, autoDecodeCharset = false) {
-      }
+      constructor(domId: string, filters?: BarcodeType[] | null, styles?: BarcodeStyles | null, autoDecodeCharset?: boolean)
       // Methods
 
       //取消扫码识别 结束后可调用start方法重新开始识别。
@@ -222,7 +222,7 @@ declare namespace plus {
     }
   }
 
-  declare namespace nativeObj {
+  namespace nativeObj {
     type Rect = {
       top: string
       left: string
@@ -230,7 +230,7 @@ declare namespace plus {
       height: string
     }
     type NativeObjSuccessCallback = () => void
-    type NativeObjErrorCallback = (error: Error) => void
+    type NativeObjErrorCallback = (err: PlusError) => void
     type BitmapSaveOptions = {
       overwrite?: boolean
       format?: string
@@ -244,8 +244,7 @@ declare namespace plus {
       height: number
     }
     type BitmapSaveSuccessCallback = (event: BitmapSaveInfo) => void
-    type NativeObjErrorCallback = (error: Error) => void
-    declare class Bitmap {
+    class Bitmap {
       constructor(id?: string, path?: string)
       id: string
       clear(): void
