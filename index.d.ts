@@ -248,6 +248,7 @@ declare namespace plus {
     declare class Bitmap {
       constructor(id?: string, path?: string)
       id: string
+      clear(): void
       loadBase64Data(data: string, successCallback: NativeObjSuccessCallback, errorCallback: NativeObjErrorCallback): void
       save(path: string, options: BitmapSaveOptions, successCallback: BitmapSaveSuccessCallback, errorCallback: NativeObjErrorCallback): void
     }
