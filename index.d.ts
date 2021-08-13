@@ -171,7 +171,7 @@ declare namespace plus {
   type GallerySuccessCallback = (event: GallerySaveEvent) => void
   declare namespace gallery {
     function pick(successCB: GalleryPickSuccessCallback, errorCB: GalleryErrorCallback, options: GalleryOption): void
-    function save(path: string, successCB: GallerySuccessCallback, errorCB: GalleryErrorCallback): void
+    function save(path: string, successCB: GallerySuccessCallback, errorCB?: GalleryErrorCallback): void
   }
 
   type WebviewEvent = 'close' | 'loaded'
