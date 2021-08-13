@@ -165,10 +165,13 @@ declare namespace plus {
   const nativeUI = {
     actionSheet(actionsheetStyle: ActionSheetStyle, actionsheetCallback: ActionSheetCallback): void
   }
-
-
-  const gallery = {
-    pick(successCB: GalleryPickSuccessCallback, errorCB: GalleryErrorCallback, options: GalleryOption): void;
+  type GallerySaveEvent = {
+    path: string
+  }
+  type GallerySuccessCallback = (event: GallerySaveEvent) => void
+  declare namespace gallery {
+    function pick(successCB: GalleryPickSuccessCallback, errorCB: GalleryErrorCallback, options: GalleryOption): void
+    function save(path: string, successCB: GallerySuccessCallback, errorCB: GalleryErrorCallback): void
   }
 
   type WebviewEvent = 'close' | 'loaded'
