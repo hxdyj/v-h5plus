@@ -252,6 +252,17 @@ declare namespace plus {
       save(path: string, options: BitmapSaveOptions, successCallback: BitmapSaveSuccessCallback, errorCallback: NativeObjErrorCallback): void
     }
   }
+
+  namespace android {
+    function runtimeMainActivity(): ClassObject
+    function invoke(obj: unknown, name: string, rect?: unknown): unknown
+    class ClassObject {
+      CLIPBOARD_SERVICE: string
+      plusGetAttribute(name: string): unknown
+      getSystemService(param: unknown): unknown
+    }
+    function importClass(classname: string | ClassObject): ClassObject
+  }
 }
 
 
