@@ -221,6 +221,37 @@ declare namespace plus {
       onmarked(type: BarcodeType, code: string, file: string);
     }
   }
+
+  declare namespace nativeObj {
+    type Rect = {
+      top: string
+      left: string
+      width: string
+      height: string
+    }
+    type NativeObjSuccessCallback = () => void
+    type NativeObjErrorCallback = (error: Error) => void
+    type BitmapSaveOptions = {
+      overwrite?: boolean
+      format?: string
+      quality?: number
+      clip?: Rect
+    }
+    type BitmapSaveInfo = {
+      target: string// 保存后的图片url路径，以"file://"开头
+      size: number // 保存后图片的大小，单位为字节（Byte）
+      width: number// 保存后图片的实际宽度，单位为px
+      height: number
+    }
+    type BitmapSaveSuccessCallback = (event: BitmapSaveInfo) => void
+    type NativeObjErrorCallback = (error: Error) => void
+    declare class Bitmap {
+      constructor(id?: string, path?: string)
+      id: string
+      loadBase64Data(data: string, successCallback: NativeObjSuccessCallback, errorCallback: NativeObjErrorCallback): void
+      save(path: string, options: BitmapSaveOptions, successCallback: BitmapSaveSuccessCallback, errorCallback: NativeObjErrorCallback): void
+    }
+  }
 }
 
 
