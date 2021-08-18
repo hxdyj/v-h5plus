@@ -263,6 +263,36 @@ declare namespace plus {
     }
     function importClass(classname: string | ClassObject): ClassObject
   }
+
+
+  namespace zip {
+    type ClipImageOptions = {
+      top: string
+      left: string
+      width: string
+      height: string
+    }
+    type CompressImageOptions = {
+      src: string
+      dst?: string
+      overwrite?: boolean
+      format?: 'jpg' | 'png'
+      quality?: number  //1-100
+      width?: string //100px|50%|auto
+      height?: string
+      rotate?: number
+      clip?: ClipImageOptions
+    }
+    type CompressImageEvent = {
+      target: string
+      size: number
+      width: number
+      height: number
+    }
+    type CompressImageSuccessCallback = (event: CompressImageEvent) => void
+    type ZipErrorCallback = (err: PlusError) => void
+    function compressImage(options: CompressImageOptions, successCB?: CompressImageSuccessCallback, errorCB?: ZipErrorCallback): void
+  }
 }
 
 
