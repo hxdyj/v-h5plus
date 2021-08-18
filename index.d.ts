@@ -273,7 +273,7 @@ declare namespace plus {
       height: string
     }
     type CompressImageOptions = {
-      src: string
+      src?: string
       dst?: string
       overwrite?: boolean
       format?: 'jpg' | 'png'
