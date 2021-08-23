@@ -15,7 +15,10 @@ declare enum PlusEventName {
     'keyboardchange' = "keyboardchange",
     'uistylechange' = "uistylechange"
 }
+declare enum PlusKeyName {
+    'backbutton' = "backbutton"
+}
 declare function amendPlusBackButton(router: Router): void;
 declare function onPlusReady(): Promise<unknown>;
 
-export { PlusEventName, amendPlusBackButton, onPlusReady };
+export { PlusEventName, PlusKeyName, amendPlusBackButton, onPlusReady };

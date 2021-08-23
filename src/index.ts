@@ -14,24 +14,24 @@ export enum PlusEventName {
     'keyboardchange' = 'keyboardchange',
     'uistylechange' = 'uistylechange',
 }
+export enum PlusKeyName {
+    'backbutton' = 'backbutton',
+}
 export function amendPlusBackButton(router: Router) {
-    plus.key.addEventListener('backbutton', function () {
-        router.go(-1)
+    plus.key.addEventListener(PlusKeyName.backbutton, function () {
+        let launchWv = plus.webview.getLaunchWebview()
+        let currentWv = plus.webview.currentWebview()
+        if (launchWv.id === currentWv.id) {
+            launchWv.canBack(resp => {
+                if (resp.canBack) {
+                    launchWv.back()
+                } else {
+                    router.go(-1)
+                }
+            })
+        }
     })
 }
-
-// export function plusShowWebview(url: string) {
-//     let wv = plus.webview.create(url, url)
-//     wv.show()
-//     let listener = function () {
-//         let currentWv = plus.webview.currentWebview();
-//         if (currentWv.id === wv.id) {
-//             plus.key.removeEventListener('backbutton', listener)
-//             wv.close()
-//         }
-//     }
-//     plus.key.addEventListener('backbutton', listener)
-// }
 
 export function onPlusReady() {
     return new Promise((resolve, reject) => {

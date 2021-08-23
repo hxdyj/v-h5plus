@@ -102,8 +102,6 @@ type ActionSheetCallback = (event: {
   index: number // 用户关闭时点击按钮的索引值 索引值从0开始  0表示用户点击取消按钮，大于0值表示用户点击ActionSheetStyles中buttons属性定义的按钮，索引值从1开始（即1表示点击buttons中定义的第一个按钮）。 通过API（close()方法）关闭，则回调函数中event的index属性值为-1。
 }) => void
 declare namespace plus {
-  type EventsName = 'plusready' | 'pause' | 'resume' | 'netchange' | 'newintent' | 'plusscrollbottom' | 'error' | 'background' | 'foreground' | 'trimmemory' | 'splashclosed' | 'keyboardchange' | 'uistylechange'
-
   namespace key {
     function addEventListener(eventName: PlusKeyType, keyEventCallback: ({ keyCode: number }) => void): void
     function removeEventListener(eventName: PlusKeyType, keyEventCallback: ({ keyCode: number }) => void): void
@@ -196,6 +194,7 @@ declare namespace plus {
     function create(url: string, id: string, style?: unknown, extras?: Extras): WebviewObject
     function currentWebview(): WebviewObject
     function getTopWebview(): WebviewObject
+    function getLaunchWebview(): WebviewObject
   }
 
   namespace barcode {
